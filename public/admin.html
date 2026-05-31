@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel - AVCU Awards</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="premium-header">
+      <h1>🛠️ ADMIN DASHBOARD</h1>
+      <p class="subtitle">Manage all votes and approvals</p>
+      <button onclick="logout()">Logout</button>
+    </header>
+
+    <!-- SUMMARY CARDS -->
+    <section class="stats">
+      <div class="stat">
+        <h3 id="totalVotes">0</h3>
+        <p>Total Votes</p>
+      </div>
+
+      <div class="stat">
+        <h3 id="pendingVotes">0</h3>
+        <p>Pending</p>
+      </div>
+
+      <div class="stat">
+        <h3 id="approvedVotes">0</h3>
+        <p>Approved</p>
+      </div>
+
+      <div class="stat">
+        <h3 id="rejectedVotes">0</h3>
+        <p>Rejected</p>
+      </div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="rules">
+      <h2>Filter Votes</h2>
+
+      <select id="filterStatus">
+        <option value="all">All Votes</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </section>
+
+    <!-- VOTES LIST -->
+    <section class="form-section">
+      <h2>Votes Management</h2>
+
+      <div id="votesContainer">
+        <!-- votes will load here -->
+      </div>
+    </section>
+
+    <!-- MODAL (for receipts preview later) -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2>Receipt Preview</h2>
+        <img id="receiptImage" style="width: 100%; border-radius: 10px" />
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
+
+    <footer>
+      <button
+        onclick="clearVotes()"
+        style="
+          background: red;
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 8px;
+        "
+      >
+        Clear All Votes
+      </button>
+      <p>© 2026 AVCU Admin Panel</p>
+    </footer>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

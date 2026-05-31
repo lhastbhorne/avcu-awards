@@ -1,0 +1,260 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    color: white;
+}
+
+/* HEADER */
+.premium-header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(120deg, #000, #1a1a1a);
+    border-bottom: 2px solid gold;
+}
+
+.premium-header h1 {
+    color: gold;
+}
+
+/* SECTIONS */
+.summary,
+.fraud-warning,
+.form-section,
+.leaderboard {
+    max-width: 600px;
+    margin: 25px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(255,215,0,0.2);
+}
+
+/* INPUTS */
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid gold;
+    background: #111;
+    color: gold;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: gold;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ffcc00;
+}
+
+/* LEADERBOARD */
+.leader-item {
+    margin: 10px 0;
+}
+
+.leader-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* PROGRESS */
+.progress-bar {
+    height: 8px;
+    background: #333;
+    border-radius: 10px;
+}
+
+.progress {
+    height: 100%;
+    background: gold;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid gold;
+}
+
+/* TIMER */
+#timer {
+    color: gold;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+/* =========================
+   ADMIN DASHBOARD STATS
+========================= */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.stat h3 {
+    color: gold;
+    font-size: 28px;
+    margin: 0;
+}
+
+.stat p {
+    margin: 5px 0 0;
+    color: #ccc;
+}
+
+/* =========================
+   FILTER DROPDOWN
+========================= */
+#filterStatus {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: gold;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+/* =========================
+   VOTE CARDS
+========================= */
+.vote-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.vote-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.vote-card p {
+    margin: 5px 0;
+    color: #ddd;
+}
+
+/* =========================
+   STATUS TAGS
+========================= */
+.status {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.status.pending {
+    background: orange;
+    color: black;
+}
+
+.status.approved {
+    background: green;
+    color: white;
+}
+
+.status.rejected {
+    background: red;
+    color: white;
+}
+
+/* =========================
+   ADMIN BUTTONS
+========================= */
+.admin-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.admin-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.approve-btn {
+    background: green;
+    color: white;
+}
+
+.reject-btn {
+    background: red;
+    color: white;
+}
+
+.admin-buttons button:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   RESPONSIVE ADMIN DASHBOARD
+========================= */
+@media (max-width: 900px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}

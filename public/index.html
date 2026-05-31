@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AVCU Awards Voting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="premium-header">
+    <h1>🏆 AVCU AWARDS PAID VOTING</h1>
+    <p class="subtitle">Vote for your favourite nominees</p>
+
+    <div class="countdown-box">
+        <span>Voting Ends In:</span>
+        <div id="timer">Loading...</div>
+    </div>
+</header>
+
+<section class="summary">
+    <h2>Welcome</h2>
+    <p>Each vote costs ₦50. All votes require admin approval.</p>
+</section>
+
+<section class="fraud-warning">
+    ⚠️ Fraudulent votes will be cancelled.
+</section>
+
+<section class="form-section">
+    <h2>Vote Now</h2>
+
+    <form id="voteForm" enctype="multipart/form-data">
+
+        <input type="text" id="fullName" placeholder="Full Name" required>
+        <input type="text" id="phoneNumber" placeholder="Phone Number" required>
+
+        <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="Most punctual member">Most punctual member</option>
+            <option value="Most reserved member">Most reserved member</option>
+            <option value="Best dancer">Best dancer</option>
+            <option value="Best dressed - female">Best dressed - female</option>
+            <option value="Best dressed - male">Best dressed - male</option>
+            <option value="Entrepreneur of the year">Entrepreneur of the year</option>
+            <option value="Most popular male">Most popular male</option>
+            <option value="Most popular female">Most popular female</option>
+            <option value="Most welcoming usher">Most welcoming usher</option>
+            <option value="Executive of the year">Executive of the year</option>
+            <option value="Most outspoken">Most outspoken</option>
+            <option value="Mr. AVCU">Mr. AVCU</option>
+            <option value="Miss AVCU">Miss AVCU</option>
+        </select>
+
+        <select id="nominee" required>
+            <option value="">Select Nominee</option>
+        </select>
+
+        <input type="number" id="votes" placeholder="Number of Votes (₦50 each)" required>
+
+        <p id="amountDisplay">Total Amount: ₦0</p>
+
+        <input type="text" id="transactionInput" placeholder="Transaction Number" required>
+
+        <input type="file" id="receipt" required>
+
+        <button type="submit">Submit Vote</button>
+    </form>
+</section>
+
+<section class="leaderboard">
+    <h2>🏆 Live Leaderboard</h2>
+    <div id="leaderboardList"></div>
+</section>
+
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <h2>🎉 Vote Submitted Successfully</h2>
+        <p>Your vote is now pending admin approval.</p>
+        <button onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 AVCU Awards</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

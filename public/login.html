@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+
+    ```
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        font-family:
+          Segoe UI,
+          sans-serif;
+      }
+
+      .login-box {
+        width: 350px;
+        background: #111;
+        padding: 30px;
+        border-radius: 15px;
+        border: 1px solid gold;
+        text-align: center;
+      }
+
+      h2 {
+        color: gold;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: gold;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+    ```
+  </head>
+  <body>
+    ```
+    <div class="login-box">
+      <h2>Admin Login</h2>
+
+      <input type="password" id="password" placeholder="Enter Admin Password" />
+
+      <button onclick="login()">Login</button>
+    </div>
+    ```
+
+    <script>
+      async function login() {
+        const password = document.getElementById("password").value;
+
+        try {
+          const res = await fetch("http://localhost:3000/admin-login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password }),
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            localStorage.setItem("adminLoggedIn", "true");
+            window.location.href = "admin.html";
+          } else {
+            alert("Wrong Password");
+          }
+        } catch (err) {
+          alert("Server Error");
+          console.error(err);
+        }
+      }
+    </script>
+  </body>
+</html>
