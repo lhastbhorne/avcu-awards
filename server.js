@@ -7,9 +7,8 @@ const path = require("path");
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 
 /* =========================
    ADMIN LOGIN
@@ -132,6 +131,8 @@ app.post("/reject/:id", (req, res) => {
 /* =========================
    START SERVER
 ========================= */
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
