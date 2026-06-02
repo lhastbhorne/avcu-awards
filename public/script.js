@@ -1,7 +1,7 @@
 const category = document.getElementById("category");
 const nominee = document.getElementById("nominee");
 const form = document.getElementById("voteForm");
-const votes = document.getElementById("votes");
+const voteInput = document.getElementById("votes");
 const transactionInput = document.getElementById("transactionInput");
 const amountDisplay = document.getElementById("amountDisplay");
 const button = form.querySelector("button[type='submit']");
@@ -12,6 +12,18 @@ let cooldown = false;
 let usedTransactions =
   JSON.parse(localStorage.getItem("usedTransactions")) || {};
 
+/* =========================
+   VOTE PRICE CALCULATION
+========================= */
+voteInput.addEventListener("input", () => {
+  const votes = Number(voteInput.value || 0);
+  const total = votes * 50;
+  amountDisplay.textContent = `Total Amount: ₦${total}`;
+});
+
+/* =========================
+   NOMINEE DROPDOWN DATA
+========================= */
 const data = {
   "Most punctual member": [
     "Sister Feranmi",
@@ -36,6 +48,9 @@ const data = {
   "Miss AVCU": ["Sister Dorinda", "Sister Evidence"],
 };
 
+/* =========================
+   CATEGORY CHANGE HANDLER
+========================= */
 category.addEventListener("change", () => {
   nominee.innerHTML = '<option value="">Select Nominee</option>';
 
@@ -50,6 +65,9 @@ category.addEventListener("change", () => {
   });
 });
 
+/* =========================
+   FORM SUBMIT (VOTE)
+========================= */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -59,7 +77,7 @@ form.addEventListener("submit", async (e) => {
   const fullName = document.getElementById("fullName").value;
   const phone = document.getElementById("phoneNumber").value;
   const transaction = transactionInput.value.trim();
-  const voteCount = Number(votes.value);
+  const voteCount = Number(voteInput.value);
   const receiptFile = document.getElementById("receipt").files[0];
 
   if (!fullName || !phone) return alert("Enter name and phone.");
@@ -68,9 +86,6 @@ form.addEventListener("submit", async (e) => {
   if (!nominee.value || voteCount <= 0) return alert("Complete all fields.");
   if (!receiptFile) return alert("Please upload receipt.");
 
-  /* =========================
-     FORM DATA (IMPORTANT FIX)
-  ========================= */
   const formData = new FormData();
   formData.append("name", fullName);
   formData.append("phone", phone);
@@ -92,7 +107,7 @@ form.addEventListener("submit", async (e) => {
       usedTransactions[transaction] = true;
       localStorage.setItem(
         "usedTransactions",
-        JSON.stringify(usedTransactions),
+        JSON.stringify(usedTransactions)
       );
 
       document.getElementById("successModal").style.display = "flex";
@@ -104,6 +119,7 @@ form.addEventListener("submit", async (e) => {
       form.reset();
       amountDisplay.textContent = "Total Amount: ₦0";
 
+      loadLeaderboard(); // ✅ IMPORTANT FIX
     } else {
       alert(result.message || "Error submitting vote");
     }
@@ -124,6 +140,62 @@ form.addEventListener("submit", async (e) => {
   }, 1000);
 });
 
+/* =========================
+   MODAL CLOSE
+========================= */
 function closeModal() {
   document.getElementById("successModal").style.display = "none";
 }
+
+/* =========================
+   LEADERBOARD
+========================= */
+async function loadLeaderboard() {
+  try {
+    const res = await fetch("/votes");
+    const data = await res.json();
+
+    const leaderboard = document.getElementById("leaderboardList");
+    leaderboard.innerHTML = "";
+
+    const approved = data.filter((v) => v.status === "approved");
+
+    const grouped = {};
+
+    approved.forEach((v) => {
+      const key = `${v.category} - ${v.nominee}`;
+
+      if (!grouped[key]) {
+        grouped[key] = {
+          category: v.category,
+          nominee: v.nominee,
+          votes: 0,
+        };
+      }
+
+      grouped[key].votes += Number(v.votesCount);
+    });
+
+    Object.values(grouped).forEach((item) => {
+      const div = document.createElement("div");
+      div.className = "leader-item";
+
+      div.innerHTML = `
+        <div class="leader-name">
+          <strong>${item.category}</strong>
+        </div>
+        <p>${item.nominee}</p>
+        <p>Votes: ${item.votes}</p>
+      `;
+
+      leaderboard.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Leaderboard error:", err);
+  }
+}
+
+/* =========================
+   INITIAL LOAD
+========================= */
+loadLeaderboard();
