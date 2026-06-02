@@ -10,6 +10,17 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+
+
+app.post("/delete/:id", (req, res) => {
+  let votes = loadVotes();
+
+  votes = votes.filter(v => v.id != req.params.id);
+
+  saveVotes(votes);
+
+  res.json({ message: "deleted" });
+});
 /* =========================
    ADMIN LOGIN
 ========================= */

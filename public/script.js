@@ -107,7 +107,7 @@ form.addEventListener("submit", async (e) => {
       usedTransactions[transaction] = true;
       localStorage.setItem(
         "usedTransactions",
-        JSON.stringify(usedTransactions)
+        JSON.stringify(usedTransactions),
       );
 
       document.getElementById("successModal").style.display = "flex";
@@ -158,12 +158,14 @@ async function loadLeaderboard() {
     const leaderboard = document.getElementById("leaderboardList");
     leaderboard.innerHTML = "";
 
+    // only approved votes
     const approved = data.filter((v) => v.status === "approved");
 
+    // STEP 1: group by category + nominee
     const grouped = {};
 
     approved.forEach((v) => {
-      const key = `${v.category} - ${v.nominee}`;
+      const key = `${v.category}|||${v.nominee}`;
 
       if (!grouped[key]) {
         grouped[key] = {
@@ -176,7 +178,23 @@ async function loadLeaderboard() {
       grouped[key].votes += Number(v.votesCount);
     });
 
-    Object.values(grouped).forEach((item) => {
+    // STEP 2: convert to array
+    const list = Object.values(grouped);
+
+    // STEP 3: pick ONLY top nominee per category
+    const winners = {};
+
+    list.forEach((item) => {
+      if (
+        !winners[item.category] ||
+        item.votes > winners[item.category].votes
+      ) {
+        winners[item.category] = item;
+      }
+    });
+
+    // STEP 4: display only winners
+    Object.values(winners).forEach((item) => {
       const div = document.createElement("div");
       div.className = "leader-item";
 
@@ -185,7 +203,6 @@ async function loadLeaderboard() {
           <strong>${item.category}</strong>
         </div>
         <p>${item.nominee}</p>
-        <p>Votes: ${item.votes}</p>
       `;
 
       leaderboard.appendChild(div);
@@ -194,7 +211,6 @@ async function loadLeaderboard() {
     console.error("Leaderboard error:", err);
   }
 }
-
 /* =========================
    INITIAL LOAD
 ========================= */
