@@ -95,13 +95,15 @@ form.addEventListener("submit", async (e) => {
         JSON.stringify(usedTransactions),
       );
 
-      alert("Vote submitted successfully 🎉 (Pending approval)");
       document.getElementById("successModal").style.display = "flex";
+
+      setTimeout(() => {
+        closeModal();
+      }, 3000);
 
       form.reset();
       amountDisplay.textContent = "Total Amount: ₦0";
 
-      loadLeaderboard();
     } else {
       alert(result.message || "Error submitting vote");
     }
@@ -121,3 +123,7 @@ form.addEventListener("submit", async (e) => {
     button.textContent = "Submit Vote";
   }, 1000);
 });
+
+function closeModal() {
+  document.getElementById("successModal").style.display = "none";
+}

@@ -98,6 +98,10 @@ button:hover {
     border: 1px solid gold;
 }
 
+.modal {
+  display: none;
+}
+
 /* TIMER */
 #timer {
     color: gold;
